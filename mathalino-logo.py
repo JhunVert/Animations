@@ -1,5 +1,3 @@
-from pickle import TRUE
-from turtle import fillcolor
 from manim import *
 
 class PolyLogo(Scene):
@@ -87,3 +85,102 @@ class PolyLogo(Scene):
         )
         self.play(Create(MATHalino))
         self.wait()
+
+
+# Shortened the code above by using For loop
+# This is my first strong grasp of a loop command
+# Needs more practice...
+class PolyLogoForLoop(Scene):
+    def construct(self):
+        centerSphere = Sphere(
+            radius=2,
+            resolution=(101, 51),
+        ).set_color(BLUE_E)
+
+        rIN = 2.49
+        rMID = 3.4
+        rOUT = 3.9
+        rTEXT = 3
+        AngleBetInMid = 3
+        AngleOUT = 8
+        AngleMIDlen = 22.5 - AngleOUT - 2*AngleBetInMid
+        AngleMIDstart = 0.5*AngleOUT + AngleBetInMid 
+
+        arcOUTstart = Arc(
+            radius=rOUT,
+            start_angle=135*PI/180,
+            angle=0.5*AngleOUT*PI/180,
+            stroke_width=2,
+            stroke_color=BLUE_A
+        )
+
+        arcOUTend = Arc(
+            radius=rOUT,
+            start_angle=(360 - 0.5*AngleOUT)*PI/180,
+            angle=0.5*AngleOUT*PI/180,
+            stroke_width=2,
+            stroke_color=BLUE_A,
+        )
+
+        arcOUT = VGroup()
+        for x in np.arange(157.5, 360, 22.5):
+            arcOUT += Arc(
+                radius=rOUT,
+                start_angle=(x - 0.5*AngleOUT)*PI/180,
+                angle=AngleOUT*PI/180,
+                stroke_width=2,
+                stroke_color=BLUE_A,
+            )
+
+        arcMID = VGroup()        
+        for y in np.arange(135, 360, 22.5):
+            arcMID += Arc(
+                radius=rMID,
+                start_angle= (y + AngleMIDstart)*PI/180,
+                angle=AngleMIDlen*PI/180,
+                stroke_width=2,
+                stroke_color=BLUE_A,
+            )
+                        
+        arcIN = Arc(
+            radius=rIN,
+            start_angle=0,
+            angle=-225*PI/180,
+            stroke_width=2,
+            stroke_color=BLUE_A
+        )
+        
+        arcMATHalino = VGroup()
+        for z in np.arange(135, 0, -15):
+            arcMATHalino += Arc(
+                radius=rTEXT,
+                start_angle= z*PI/180,
+                angle=-15*PI/180,
+                stroke_width=2,
+                stroke_color=RED,
+            )
+
+        poly_conf = {
+            "stroke_width": 2,
+            "stroke_color": BLUE_A,
+            "fill_opacity": 1,
+            "fill_color": "#0072BC",
+        }
+
+        gearLogo = ArcPolygonFromArcs(
+            arcOUTstart, arcMID[0], arcOUT[0], arcMID[1], arcOUT[1], arcMID[2], arcOUT[2], arcMID[3], arcOUT[3],
+            arcMID[4], arcOUT[4], arcMID[5], arcOUT[5], arcMID[6], arcOUT[6], arcMID[7], arcOUT[7],
+            arcMID[8], arcOUT[8], arcMID[9], arcOUTend, arcIN, **poly_conf,  
+        )
+
+        MATHalino = Tex("$\\mathbb{M}$","$\\mathbb{A}$","$\\mathbb{T}$","$\\mathbb{H}$","$\\alpha$","l","i","n","o")
+        MATHalino[4].set_color(PURE_RED)
+        for i in range(9):
+            MATHalino[i].move_to(arcMATHalino[i])
+        
+        self.add(
+            gearLogo,
+            centerSphere,
+            #arcMATHalino,
+            MATHalino,
+        )
