@@ -18,8 +18,11 @@ class PolyLogo(Scene):
         AngleMIDlen = 22.5 - AngleOUT - 2*AngleBetInMid
         AngleMIDstart = 0.5*AngleOUT + AngleBetInMid 
 
-        arcIN = Arc(radius=rIN, start_angle=0, angle=-225*PI/180, stroke_width=2)
+        arcIN = Arc(radius=rIN, start_angle=0, angle=-225*PI/180, stroke_width=2, stroke_color=BLUE_A)
 
+        # I am still struggling with loops
+        # If someone out there who can shorten the codes for arcs below using loops,
+        # it will be highly appreciated
         arcOUT0 = Arc(radius=rOUT, start_angle=135*PI/180, angle=0.5*AngleOUT*PI/180, stroke_width=2, stroke_color=BLUE_A)
         arcOUT1 = Arc(radius=rOUT, start_angle=(157.5 - 0.5*AngleOUT)*PI/180, angle=AngleOUT*PI/180, stroke_width=2, stroke_color=BLUE_A)
         arcOUT2 = Arc(radius=rOUT, start_angle=(180 - 0.5*AngleOUT)*PI/180, angle=AngleOUT*PI/180, stroke_width=2, stroke_color=BLUE_A)
@@ -43,6 +46,7 @@ class PolyLogo(Scene):
         arcMID8 = Arc(radius=rMID, start_angle=(315 + AngleMIDstart)*PI/180, angle=AngleMIDlen*PI/180, stroke_width=2, stroke_color=BLUE_A)
         arcMID9 = Arc(radius=rMID, start_angle=(337.5 + AngleMIDstart)*PI/180, angle=AngleMIDlen*PI/180, stroke_width=2, stroke_color=BLUE_A)
 
+        # The following are placeholders of the letters in the word MATHalino
         arcO = Arc(radius=rTEXT, start_angle=0, angle=15*PI/180)
         arcN = Arc(radius=rTEXT, start_angle=15*PI/180, angle=15*PI/180)
         arcI = Arc(radius=rTEXT, start_angle=30*PI/180, angle=15*PI/180)
@@ -52,8 +56,6 @@ class PolyLogo(Scene):
         arcT = Arc(radius=rTEXT, start_angle=90*PI/180, angle=15*PI/180)
         arcA = Arc(radius=rTEXT, start_angle=105*PI/180, angle=15*PI/180)
         arcM = Arc(radius=rTEXT, start_angle=120*PI/180, angle=15*PI/180)
-
-        arcMATHAlino = Arc(radius=rTEXT, start_angle=0, angle=135*PI/180).set_color(RED)
 
         MATHalino = Tex("$\\mathbb{M}$","$\\mathbb{A}$","$\\mathbb{T}$","$\\mathbb{H}$","$\\alpha$","l","i","n","o")
         MATHalino[0].move_to(arcM)
